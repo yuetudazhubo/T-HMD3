@@ -235,7 +235,7 @@ def main():
             actor_cls = Actor
             critic_cls = Critic
 
-        print("Using FastTD3")
+        print("Using TD3")
     elif args.agent == "td3_simbav2":
         if env_type in ["mtbench"]:
             from tdmc.thmd3_hyperspherical import MultiTaskActor, MultiTaskCritic
@@ -248,7 +248,7 @@ def main():
             actor_cls = Actor
             critic_cls = Critic
 
-        print("Using FastTD3 + SimbaV2")
+        print("Using TD3 + Simbav2")
         actor_kwargs.pop("init_scale")
         actor_kwargs.update(
             {
@@ -275,7 +275,7 @@ def main():
 
     elif args.agent == "tdmc":
         from tdmc.thmd3 import HypersphericalActor as Actor, HypersphericalCritic as Critic
-        print("Using FastTD3 + Hyperspherical (multi-critic + lightweight encoder)")
+        print("Using TD3 + Hyperspherical (multi-critic + lightweight encoder)")
         actor_cls, critic_cls = Actor, Critic
         print(f"n_obs: {n_obs}, n_act: {n_act}") 
         print(f"encoder_feat: {args.encoder_feat}, seq_len: {args.seq_len}") 
@@ -309,7 +309,7 @@ def main():
             "use_static_encoder": args.use_static_encoder,
             "static_encoder_type": args.static_encoder_type,
         })
-        print("Using FastTD3 + Hyperspherical (multi-critic + lightweight encoder)") 
+        print("Using TD3 + Hyperspherical ") 
         print(f"\n[Debug] 初始化Hyperspherical Critic参数:")
         print(f"  num_critics: {args.num_critics}")
         print(f"  encoder_feat: {args.encoder_feat}")
