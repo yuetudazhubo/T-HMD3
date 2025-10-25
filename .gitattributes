@@ -1,0 +1,24 @@
+# Auto detect text files and perform LF normalization
+#* text=auto
+
+env/
+tdmc_td3_*/
+*.conda
+*.tar.gz
+
+
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+logs/
+wandb/
+
+
+*.env
+*.key
+*.jsonl
+
+
+.DS_Store
+Thumbs.db
