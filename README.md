@@ -104,7 +104,7 @@ cd TDMC-TD3
 conda activate tdmc_td3_mtbench
 ###modyfing the env_name
 
-**Quick note:** For boolean-based arguments, you can set them to False by adding `no_` in front each argument, for instance, if you want to disable Clipped Q Learning, you can specify `--no_use_cdq` in your command.
+
 
 ### TD3
 ```bibtex
