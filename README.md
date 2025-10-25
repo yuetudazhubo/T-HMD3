@@ -74,17 +74,6 @@ cd ..
 pip install -r requirements/requirements_isaacgym.txt
 ```
 
-### (Optional) Accelerate headless GPU rendering in cloud instances
-
-In some cloud VM images the NVIDIA kernel driver is present but the user-space OpenGL/EGL/Vulkan libraries aren't, so MuJoCo falls back to CPU renderer. You can install just the NVIDIA user-space libraries (and skip rebuilding the kernel module) with:
-
-```bash
-sudo apt install -y kmod
-sudo sh NVIDIA-Linux-x86_64-<your_driver_version>.run -s --no-kernel-module --ui=none --no-questions
-```
-
-As a rule-of-thumb, if you're running experiments and rendering is taking longer than 5 seconds, it is very likely that GPU renderer is not used.
-
 ## 🚀 Running Experiments
 
 Activate the appropriate Conda environment before running experiments.
@@ -139,34 +128,6 @@ conda activate tdmc_td3_mtbench
 }
 ```
 
-### LeanRL
-
-Following the [LeanRL](https://github.com/pytorch-labs/LeanRL)'s recommendation, we put CleanRL's bibtex here:
-
-```bibtex
-@article{huang2022cleanrl,
-  author  = {Shengyi Huang and Rousslan Fernand Julien Dossa and Chang Ye and Jeff Braga and Dipam Chakraborty and Kinal Mehta and João G.M. Araújo},
-  title   = {CleanRL: High-quality Single-file Implementations of Deep Reinforcement Learning Algorithms},
-  journal = {Journal of Machine Learning Research},
-  year    = {2022},
-  volume  = {23},
-  number  = {274},
-  pages   = {1--18},
-  url     = {http://jmlr.org/papers/v23/21-1342.html}
-}
-```
-
-### Parallel Q-Learning (PQL)
-```bibtex
-@inproceedings{li2023parallel,
-  title={Parallel $ Q $-Learning: Scaling Off-policy Reinforcement Learning under Massively Parallel Simulation},
-  author={Li, Zechu and Chen, Tao and Hong, Zhang-Wei and Ajay, Anurag and Agrawal, Pulkit},
-  booktitle={International Conference on Machine Learning},
-  pages={19440--19459},
-  year={2023},
-  organization={PMLR}
-}
-```
 
 ### HumanoidBench
 ```bibtex
@@ -214,26 +175,4 @@ url={https://openreview.net/forum?id=z0MM0y20I2}
 }
 ```
 
-### Getting SAC to Work on a Massive Parallel Simulator
-```bibtex
-@article{raffin2025isaacsim,
-  title   = "Getting SAC to Work on a Massive Parallel Simulator: An RL Journey With Off-Policy Algorithms",
-  author  = "Raffin, Antonin",
-  journal = "araffin.github.io",
-  year    = "2025",
-  month   = "Feb",
-  url     = "https://araffin.github.io/post/sac-massive-sim/"
-}
-```
 
-### Speeding Up SAC with Massively Parallel Simulation
-```bibtex
-@article{shukla2025fastsac,
-  title   = "Speeding Up SAC with Massively Parallel Simulation",
-  author  = "Shukla, Arth",
-  journal = "https://arthshukla.substack.com",
-  year    = "2025",
-  month   = "Mar",
-  url     = "https://arthshukla.substack.com/p/speeding-up-sac-with-massively-parallel"
-}
-```
