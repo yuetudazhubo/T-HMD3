@@ -248,7 +248,7 @@ def main():
             actor_cls = Actor
             critic_cls = Critic
 
-        print("Using TD3 + Simbav2")
+        print("Using td3 + Simbav2")
         actor_kwargs.pop("init_scale")
         actor_kwargs.update(
             {
@@ -544,7 +544,6 @@ def main():
                     qf_next_target_projected_dict[f"qf{i}_next_target_projected"] = proj_all[:, i, :]
                 qf1_next_target_dist = qf2_next_target_dist = qf_next_target_dist
 
-                #这是为了后面有用，实际上qf_next_target_dist以及多头里面算过返回了
                 qf_next_target_value_dict = {}
                 for i in range(proj_all.size(1)):
                     key = f"qf{i}_next_target_projected"
@@ -585,11 +584,11 @@ def main():
             qf2_loss = -torch.sum(
                 qf2_next_target_dist * F.log_softmax(qf_dict["qf1"], dim=1), dim=1
             ).mean()
-            qf_loss = qf1_loss + qf2_loss#加多头就继续加代码
+            qf_loss = qf1_loss + qf2_loss#qf3\qf4...
 
 
             # ===== Teacher distillation loss (optional) =====
-            distill_loss = torch.tensor(0.0, device=device)#mse_loss里稍微变了对象
+            distill_loss = torch.tensor(0.0, device=device)
             if teacher is not None and teacher_monitor is not None and teacher_monitor.use_teacher and args.teacher_mode in ["shaping", "bootstrap"]:
                 try:
 
@@ -624,7 +623,7 @@ def main():
             critic_grad_norm = torch.tensor(0.0, device=device)
         scaler.step(q_optimizer)
         scaler.update()
-        with torch.no_grad():#对象改变
+        with torch.no_grad():
             try:
                 if not hasattr(qnet, "ensemble") or qnet.ensemble is None:
                     q1_val = qnet.get_value(F.softmax(qf_dict["qf0"], dim=1))  
@@ -703,7 +702,7 @@ def main():
         logs_dict["critic_grad_norm"] = critic_grad_norm.detach()
         logs_dict["qf_loss"] = qf_loss.detach()
         logs_dict["qf_max"] = qf_next_target_value_dict["qf0_next_target_value"].max().detach()
-        logs_dict["qf_min"] = qf_next_target_value_dict["qf0_next_target_value"].min().detach()#对象改变
+        logs_dict["qf_min"] = qf_next_target_value_dict["qf0_next_target_value"].min().detach()
         return logs_dict
 
     def update_pol(data, logs_dict):
@@ -727,7 +726,7 @@ def main():
             for i in range(all_logits3.size(1)):
                 qf_dict[f"qf{i}"] = all_logits3[:, i, :]
             qf1_value = qnet.get_value(F.softmax(qf_dict["qf0"], dim=1))
-            qf2_value = qnet.get_value(F.softmax(qf_dict["qf1"], dim=1))#加多头还得加代码
+            qf2_value = qnet.get_value(F.softmax(qf_dict["qf1"], dim=1))#
 
             if args.use_cdq:
                 qf_value = torch.minimum(qf1_value, qf2_value)
