@@ -236,7 +236,7 @@ def main():
             critic_cls = Critic
 
         print("Using TD3")
-    elif args.agent == "td3_simbav2":
+    elif args.agent == "td3_Hyperspherical":
         if env_type in ["mtbench"]:
             from tdmc.thmd3_hyperspherical import MultiTaskActor, MultiTaskCritic
 
@@ -248,7 +248,7 @@ def main():
             actor_cls = Actor
             critic_cls = Critic
 
-        print("Using td3 + Simbav2")
+        print("Using td3 + Hyperspherical")
         actor_kwargs.pop("init_scale")
         actor_kwargs.update(
             {
